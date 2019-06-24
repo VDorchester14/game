@@ -3,6 +3,7 @@
 from display_manager import display_manager
 from menu_manager import menu_manager
 from shapes import pyramid
+from skybox_manager import skybox
 
 import pygame as py
 from pygame.locals import *
@@ -29,38 +30,26 @@ class game_driver():
         self.dm = display_manager()
         self.dm.open_display()
 
-
         # open and run the main menu
         #self.main_menu()
-
-        vertices = (
-        (1, -1, -1),
-        (1, 1, -1),
-        (-1, 1, -1),
-        (-1, -1, -1),
-        (0, 0, 1)
-        )
-
-        edges = (
-        (0,1),
-        (0,3),
-        (0,4),
-        (1,4),
-        (1,2),
-        (2,4),
-        (2,3),
-        (3,4)
-        )
 
         # show the game until the user tries to exit
         clock = py.time.Clock()
         running = True # to tell if the game is running
+
+        sky = skybox(1024)
+        sky.load_box()
+
+
         while(running):
+
+            # control fps
             clock.tick(60)
 
             # render
-            glRotatef(2,1,1,3)
-            pyramid(vertices, edges)
+            #sky.draw_skybox()
+            #glRotatef(2,1,1,3)
+            pyramid()
 
 
             # update the display
@@ -71,10 +60,10 @@ class game_driver():
                 if event.type == py.QUIT: # if they try to quit
                     py.quit()
                     quit()
-                '''# check if esc key
-                if event.tpye == py.KEYDOWN:
+                # check if esc key
+                elif event.type == py.KEYDOWN:
                     if event.key == py.K_ESCAPE:
-                        running = False'''
+                        running = False
             # clear
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 

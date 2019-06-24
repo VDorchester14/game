@@ -28,6 +28,7 @@ class display_manager():
         py.display.set_caption("Game Engine")
         self.disp = py.display.set_mode(self.size, DOUBLEBUF|OPENGL)#, py.FULLSCREEN)
 
+        # change perspective
         gluPerspective(45, (self.size[0]/self.size[1]), 0.1, 50)
         glTranslatef(0, 0, -5)
 

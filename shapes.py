@@ -6,6 +6,7 @@ import pygame as py
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
+import numpy as np
 
 def pyramid():
     vertices = (
@@ -35,11 +36,11 @@ def pyramid():
     glEnd()
 
 def triangle():
-    vertices = [
+    vertices = np.array([
     -0.5, -0.5, 0.0,
     0.5, -0.5, 0.0,
     0.0, 0.5, 0.0
-    ]
+    ])
     vbo = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, vbo)
     glBufferData(GL_ARRAY_BUFFER, len(vertices), vertices, GL_STATIC_DRAW)

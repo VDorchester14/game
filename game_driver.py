@@ -2,13 +2,15 @@
 
 from display_manager import display_manager
 from menu_manager import menu_manager
-from shapes import pyramid
+from shapes import *
 from skybox_manager import skybox
+from my_shaders import *
 
 import pygame as py
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from OpenGL.GL import shaders
 
 
 '''
@@ -37,9 +39,20 @@ class game_driver():
         clock = py.time.Clock()
         running = True # to tell if the game is running
 
+        # create and compile our shaders
+        self.cvshader = cube_vert_shader()
+        self.cfshader = cube_frag_shader()
+        self.shader = shaders.compileProgram(self.cvshader.VERTEX_SHADER, self.cfshader.FRAGMENT_SHADER)
+        glUseProgram(self.shader)
+
+        # create the skybox
         sky = skybox(1024)
         sky.load_box()
+        sky.display_box()
 
+        glUseProgram(0)
+
+        print("Looping now")
 
         while(running):
 
@@ -47,8 +60,8 @@ class game_driver():
             clock.tick(60)
 
             # render
-            #sky.draw_skybox()
-            #glRotatef(2,1,1,3)
+            #sky.display_box()
+            glRotatef(2,1,1,3)
             pyramid()
 
 

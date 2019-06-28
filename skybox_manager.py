@@ -1,12 +1,19 @@
+from my_shaders import cube_vert_shader
+from my_shaders import cube_frag_shader
+
+import numpy as np # for vbo arrays
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
+from OpenGL.arrays import vbo
+
 import sys
 from PIL import Image
 
 class skybox():
 
-    vertices = [
+    vertices = np.array([
     # positions
     -1.0,  1.0, -1.0,
     -1.0, -1.0, -1.0,
@@ -49,7 +56,7 @@ class skybox():
      1.0, -1.0, -1.0,
     -1.0, -1.0,  1.0,
      1.0, -1.0,  1.0
-    ]
+    ])
 
     def __init__(self, resolution):
         self.resolution = resolution
@@ -86,8 +93,29 @@ class skybox():
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        self.textureID = textureID
         return textureID
-    # render the skybox
-    def display_box():
 
+    # render the skybox
+    def display_box(self):
+        vbo = glGenBuffers(1) # make a vbo
+        vaos = glGenVertexArrays(1) # make a vao
+
+        # bind and load data
+        glBindBuffer(GL_ARRAY_BUFFER, vbo) # bind the vbo
+        glBufferData(GL_ARRAY_BUFFER, self.vertices.size, self.vertices, GL_STATIC_DRAW) # load the data
+
+        # create vertex pointers
+        glVertexPointer(3, GL_FLOAT, 0, None)
+
+        #glBindVertexArray(vaos)
+
+        glDepthMask(GL_FALSE);
+        #skyboxShader.use();
+        glBindVertexArray(ass);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, self.textureID);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDepthMask(GL_TRUE);
+
+        glBindVertexArray(0)
         return

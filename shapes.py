@@ -33,3 +33,14 @@ def pyramid():
         for vertex in edge:
             glVertex3fv(vertices[vertex])
     glEnd()
+
+def triangle():
+    vertices = [
+    -0.5, -0.5, 0.0,
+    0.5, -0.5, 0.0,
+    0.0, 0.5, 0.0
+    ]
+    vbo = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vbo)
+    glBufferData(GL_ARRAY_BUFFER, len(vertices), vertices, GL_STATIC_DRAW)
+    return

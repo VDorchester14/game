@@ -5,6 +5,7 @@ from menu_manager import menu_manager
 from shapes import *
 from skybox_manager import skybox
 from my_shaders import *
+from sound_manager import *
 
 import pygame as py
 from pygame.locals import *
@@ -50,8 +51,14 @@ class game_driver():
         sky.load_box()
         sky.display_box()
 
+        # unlock shaders
         glUseProgram(0)
 
+        # handle music
+        sounds = soundtrack() # create the handler
+        sounds.load() # load the music
+        sounds.play() # play the music
+        
         print("Looping now")
 
         while(running):

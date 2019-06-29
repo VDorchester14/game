@@ -112,7 +112,7 @@ class skybox():
 
         glDepthMask(GL_FALSE);
         #skyboxShader.use();
-        glBindVertexArray(ass);
+        glBindVertexArray(vaos);
         glBindTexture(GL_TEXTURE_CUBE_MAP, self.textureID);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glDepthMask(GL_TRUE);

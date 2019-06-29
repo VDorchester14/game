@@ -69,7 +69,7 @@ class skybox():
         glBindTexture(GL_TEXTURE_CUBE_MAP, textureID)
 
         # set paths
-        path = "assets/purple_night_sky"
+        path = "assets/images/skybox/purple_night_sky"
         path_modifiers = ["RT.png","LF.png","UP.png","DN.png","FT.png","BK.png"]
         paths = []
         for i, p in enumerate(path_modifiers):

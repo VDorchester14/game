@@ -1,7 +1,7 @@
 import pygame as py
 # to manage the sounds
 class soundtrack():
-    path = "./assets/song.mp3"
+    path = "./assets/sounds/music/song.mp3"
 
     def __init__(sef):
         py.mixer.init()
